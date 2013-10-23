@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flibusta front</title>
+    <style type="text/css">
+    html {
+        overflow-y: hidden;
+    }
+
+    body {
+        text-align: center;
+        background:;
+        font-family: helvetica;
+    }
+
+    input {
+        border: 0;
+        padding: 10px;
+        font-size: 18px;
+        /*margin: 10px;*/
+    }
+
+    header {
+        position:fixed;
+        z-index: 5;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 100px;
+        background: rgb(43, 43, 43);
+        color: rgb(230, 225, 220);
+        display: inline;
+    }
+
+    input[type="text"]
+    {
+        /*width: expression(document.body.clientHeight-100);*/
+        width: 90%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        margin: 10px 0px 10px 0px;
+    }
+
+    p {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    #ctrl {
+        display: block;
+        white-space: nowrap;
+    }
+
+    #fr {
+        position:absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 100px;
+        background: blue;
+        width: 100%;
+        height: 100%;
+        /*height: expression(document.body.clientHeight-100);*/
+
+    }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <form id="trans">
+        <input id="in" type="text" placeholder="Input translit">
+        <input id="but" type="submit" value="Load">
+        </form>
+        <p id="out">Out text</p>
+    </header>
+    <div id="outfr"><iframe id="fr" src="http://flibusta.net" frameborder="0"></iframe></div>
+    <script type="text/javascript">
+        transliterate = (
+        function() {
+            var
+                rus = "щ   ш  ч  ц  ю  я  ё  ж  ъ  ы  э  а б в г д е з и й к л м н о п р с т у ф х ь".split(/ +/g),
+                eng = "shh sh ch cz yu ya yo zh `` y' e` a b v g d e z i j k l m n o p r s t u f x `".split(/ +/g)
+            ;
+            return function(text, engToRus) {
+                var x;
+                for(x = 0; x < rus.length; x++) {
+                    text = text.split(engToRus ? eng[x] : rus[x]).join(engToRus ? rus[x] : eng[x]);
+                    text = text.split(engToRus ? eng[x].toUpperCase() : rus[x].toUpperCase()).join(engToRus ? rus[x].toUpperCase() : eng[x].toUpperCase()); 
+                }
+                return text;
+            }
+        }
+        )();
+        var text = "";
+        $('#in').on('input', function(){
+            
+            text = transliterate($('#in').val(), true);
+            $('#out').text(text);
+        });
+        $('#but').on('click', function(){
+            var req = "http://flibusta.net/booksearch?ask=";
+            var url = req + encodeURIComponent(text);
+            $('#fr').remove();
+            $('#outfr').append("<iframe id=\"fr\" src=" + url +" frameborder=\"0\"></iframe>");
+            // $('#fr').src = 'http://flibusta.net/book';
+            //event.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
