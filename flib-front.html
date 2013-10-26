@@ -103,10 +103,11 @@
         $('#but').on('click', function(){
             var req = "http://flibusta.net/booksearch?ask=";
             var url = req + encodeURIComponent(text);
-            $('#fr').remove();
-            $('#outfr').append("<iframe id=\"fr\" src=" + url +" frameborder=\"0\"></iframe>");
+            //$('#fr').remove();
+            //$('#outfr').append("<iframe id=\"fr\" src=" + url +" frameborder=\"0\"></iframe>");
             // $('#fr').src = 'http://flibusta.net/book';
             //event.preventDefault();
+            window.location = url;
             return false;
         });
     </script>
