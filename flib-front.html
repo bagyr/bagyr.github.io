@@ -12,16 +12,6 @@
         text-align: center;
         background:;
         font-family: helvetica;
-    }
-
-    input {
-        border: 0;
-        padding: 10px;
-        font-size: 18px;
-        /*margin: 10px;*/
-    }
-
-    header {
         position:fixed;
         z-index: 5;
         left: 0;
@@ -31,6 +21,13 @@
         background: rgb(43, 43, 43);
         color: rgb(230, 225, 220);
         display: inline;
+    }
+
+    input {
+        border: 0;
+        padding: 10px;
+        font-size: 18px;
+        /*margin: 10px;*/
     }
 
     input[type="text"]
@@ -52,31 +49,15 @@
         display: block;
         white-space: nowrap;
     }
-
-    #fr {
-        position:absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 100px;
-        background: blue;
-        width: 100%;
-        height: 100%;
-        /*height: expression(document.body.clientHeight-100);*/
-
-    }
     </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-    <header>
-        <form id="trans">
-        <input id="in" type="text" placeholder="Input translit">
-        <input id="but" type="submit" value="Load">
-        </form>
-        <p id="out">Out text</p>
-    </header>
-    <div id="outfr"><iframe id="fr" src="http://flibusta.net" frameborder="0"></iframe></div>
+    <form id="trans">
+    <input id="in" type="text" placeholder="Input translit">
+    <input id="but" type="submit" value="Load">
+    </form>
+    <p id="out">Out text</p>
     <script type="text/javascript">
         transliterate = (
         function() {
@@ -103,10 +84,6 @@
         $('#but').on('click', function(){
             var req = "http://flibusta.net/booksearch?ask=";
             var url = req + encodeURIComponent(text);
-            //$('#fr').remove();
-            //$('#outfr').append("<iframe id=\"fr\" src=" + url +" frameborder=\"0\"></iframe>");
-            // $('#fr').src = 'http://flibusta.net/book';
-            //event.preventDefault();
             window.location = url;
             return false;
         });
